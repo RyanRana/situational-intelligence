@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEGIS v9</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" crossorigin src="/assets/index-OmHv0-mf.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-tetTfZxp.css">
+</head>
+<body>
+<div class="modal-bg" id="modal"><div class="modal"><h2 class="mono">AEGIS v9</h2><span class="mono sub">Ambient Emergency Guardian</span><p>Anthropic API key — stays local in browser.</p><input type="password" id="keyInput" class="mono" placeholder="sk-ant-api03-..."/><button class="mono" id="activateBtn">ACTIVATE</button><p class="note">console.anthropic.com</p></div></div>
+<div class="hdr"><div class="hdr-left"><div class="dot" id="dot"></div><span class="mono brand">AEGIS</span><span class="mono brand-sub">v9</span></div><div class="hdr-right"><span class="mono hdr-chip" id="cF">SCANS: 0</span><span class="mono hdr-chip" id="cT">--:--:--</span><span class="mono hdr-chip threat" id="cTh">THREAT: —</span></div></div>
+<div class="main">
+<div class="col-v">
+  <div class="vw">
+    <div class="vph" id="ph"><div class="mono" style="font-size:52px;color:#1e2d3d">◎</div><button class="mono ibtn" id="initBtn">INITIALIZE FEED</button></div>
+    <video id="vid" autoplay playsinline muted style="display:none"></video>
+    <canvas id="cap" style="display:none"></canvas>
+    <div class="sl" id="sL"></div>
+    <div class="vhud" id="vH"><span class="mono" style="color:#ff1744;animation:blink 1.2s infinite">● REC</span><span class="mono" id="clock"></span><span class="mono">CAM-01</span></div>
+    <div class="mono tp" id="tP"></div>
+    <div class="mono mb" id="mB">MOTION <span id="mP">0%</span><div class="bar"><div class="fill" id="mF"></div></div></div>
+    <div class="mono gi" id="gI">👁 WATCHING FOR GESTURE</div>
+    <div class="so mono" id="sO"><div style="font-size:20px;margin-bottom:6px">🔊</div><div id="sT"></div></div>
+  </div>
+  <div class="lb mono"><span class="pin">◉</span><span id="lT">Acquiring...</span><span class="hosp" id="hT">⚕ Searching...</span></div>
+  <div class="ab mono"><span id="mI">🔇</span><span>MIC:</span><span class="tr" id="aT">Inactive</span><button class="mono mic-reconnect" id="micBtn" style="display:none">🎤 RECONNECT</button></div>
+  <div class="akb mono" id="aB"></div>
+  <div class="ct" id="ct"><button class="mono btn bg" style="flex:1" id="connectBtn">⏻ CONNECT</button></div>
+</div>
+<div class="col-i">
+  <div class="tabs"><div class="mono tab active" data-tab="live" id="tab-live">LIVE</div><div class="mono tab" data-tab="events" id="tab-events">EVENTS</div><div class="mono tab" data-tab="dispatch" id="tab-dispatch">DISPATCH <span id="dBg"></span></div></div>
+  <div class="tc">
+    <div class="tp2 active" id="pane-live">
+      <div id="eS" style="display:none;margin-bottom:10px"><div class="mono" style="font-size:9px;letter-spacing:2px;color:#2a3f55;margin-bottom:6px">ESCALATION</div><div id="eT"></div></div>
+      <div class="nb" id="nB" style="display:none"><div class="mono nt">NARRATIVE</div><div class="nn" id="nT"></div></div>
+      <div class="sr"><div class="st2"><div class="mono l">PEOPLE</div><div class="mono v" id="sP">—</div></div><div class="st2"><div class="mono l">SCENE</div><div class="mono v" id="sSc">—</div></div><div class="st2"><div class="mono l">MOTION</div><div class="mono v" id="sM">—</div></div><div class="st2"><div class="mono l">CONF</div><div class="mono v" id="sCf">—</div></div></div>
+      <div class="mono" style="font-size:9px;letter-spacing:2px;color:#2a3f55;margin-bottom:6px">TAGS</div>
+      <div class="tg" id="tG"><div class="es2" style="width:100%">No detections</div></div>
+    </div>
+    <div class="tp2" id="pane-events"><div class="mono" style="font-size:9px;letter-spacing:2px;color:#2a3f55;margin-bottom:6px">EVENTS <span id="eC">(0)</span></div><div id="eL"><div class="es2">No events</div></div></div>
+    <div class="tp2" id="pane-dispatch"><div class="mono" style="font-size:9px;letter-spacing:2px;color:#2a3f55;margin-bottom:6px">DISPATCH</div><div id="dL"><div class="es2">Monitoring normally</div></div></div>
+  </div>
+</div>
+</div>
+</body>
+</html>
