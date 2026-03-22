@@ -35,4 +35,6 @@ export const S = {
   motionInterval: null,
   maps: {},
   micPermissionGranted: false,
+  speakerActive: false,
+  speakerMuteUntil: 0,
 };

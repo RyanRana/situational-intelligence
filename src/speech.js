@@ -46,6 +46,12 @@ export function startSR() {
     if (interim) { d.textContent = interim; d.className = 'tr int mono'; }
     if (final) {
       const c = final.trim();
+      // Ignore anything the mic picks up while speaker is active (TTS feedback)
+      if (S.speakerActive || Date.now() < S.speakerMuteUntil) {
+        d.textContent = `[speaker] ${c}`;
+        d.className = 'tr mono';
+        return;
+      }
       S.audioBuffer.push(c);
       if (S.audioBuffer.length > 30) S.audioBuffer.shift();
       S.aiAudio = S.audioBuffer.slice(-15).join('. ');
@@ -126,6 +132,20 @@ export function speakTo(m) {
   const v = speechSynthesis.getVoices();
   const p = v.find(x => x.lang.startsWith('en')) || v[0];
   if (p) u.voice = p;
-  u.onend = () => { setTimeout(() => { o.style.display = 'none'; }, 2000); };
+
+  // Mute mic processing while speaker is active to prevent TTS feedback loop
+  S.speakerActive = true;
+  u.onstart = () => { S.speakerActive = true; };
+  u.onend = () => {
+    S.speakerActive = false;
+    // Keep muted for 1.5s after TTS ends to catch echo/reverb tail
+    S.speakerMuteUntil = Date.now() + 1500;
+    setTimeout(() => { o.style.display = 'none'; }, 2000);
+  };
+  u.onerror = () => {
+    S.speakerActive = false;
+    S.speakerMuteUntil = Date.now() + 1500;
+  };
+
   speechSynthesis.speak(u);
 }
